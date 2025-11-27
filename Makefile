@@ -6,15 +6,16 @@ TEMPLATE_DIR := templates/homepage
 
 .ONESHELL:
 
-.PHONY: help create bootstrap homepage routes setup
+.PHONY: help create bootstrap homepage routes audit-aria setup
 
 help:
-	@echo "Objetivos disponibles:"
-	@echo "  make create PROJECT_NAME=mi-app  - Crea un proyecto nuevo usando create_angular_project.sh"
-	@echo "  make bootstrap [PROJECT_NAME=...]  - Instala dependencias y añade Bootstrap al angular.json"
-	@echo "  make homepage  [PROJECT_NAME=...]  - Copia la página de inicio plantilla en src/app"
-	@echo "  make routes    [PROJECT_NAME=...]  - Genera/actualiza src/app/app.routes.ts con las rutas básicas"
-	@echo "  make setup     [PROJECT_NAME=...]  - Ejecuta bootstrap + homepage sobre el proyecto"
+        @echo "Objetivos disponibles:"
+        @echo "  make create PROJECT_NAME=mi-app  - Crea un proyecto nuevo usando create_angular_project.sh"
+        @echo "  make bootstrap [PROJECT_NAME=...]  - Instala dependencias y añade Bootstrap al angular.json"
+        @echo "  make homepage  [PROJECT_NAME=...]  - Copia la página de inicio plantilla en src/app"
+        @echo "  make routes    [PROJECT_NAME=...]  - Genera/actualiza src/app/app.routes.ts con las rutas básicas"
+        @echo "  make audit-aria [PROJECT_NAME=...] - Revisa los HTML y avisa de etiquetas sin aria-label/alt"
+        @echo "  make setup     [PROJECT_NAME=...]  - Ejecuta bootstrap + homepage sobre el proyecto"
 
 create:
 	./create_angular_project.sh $(PROJECT_NAME)
@@ -30,7 +31,7 @@ homepage:
 	cp $(TEMPLATE_DIR)/app.ts $(APP_DIR)/app.ts
 
 routes:
-	@node - <<'NODE'
+        @node - <<'NODE'
 	const fs = require('fs');
 	const path = require('path');
 	const appDir = '$(APP_DIR)';
@@ -95,7 +96,10 @@ routes:
 	        const finalContent =
 	          finalImports + '\n\nexport const routes: Routes = [\n' + normalizedRoutes + '\n];\n';
 	fs.writeFileSync(routesPath, finalContent);
-	console.log('Rutas actualizadas en', routesPath);
-	NODE
+        console.log('Rutas actualizadas en', routesPath);
+        NODE
+
+audit-aria:
+	node audit-aria.js $(PROJECT_DIR)
 
 setup: bootstrap homepage routes
