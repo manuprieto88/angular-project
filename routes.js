@@ -19,9 +19,13 @@ if (!fs.existsSync(appDir)) {
 }
 
 const importLines = new Map();
+const normalizeImport = (line) =>
+  line.trim().replace(/(from '\.[^']*)\.ts';$/, "$1';");
 if (fs.existsSync(routesPath)) {
   const content = fs.readFileSync(routesPath, 'utf8');
-  (content.match(/^import .*;$/gm) || []).forEach((line) => importLines.set(line.trim(), true));
+  (content.match(/^import .*;$/gm) || []).forEach((line) =>
+    importLines.set(normalizeImport(line), true)
+  );
 }
 importLines.set("import { Routes } from '@angular/router';", true);
 
@@ -42,8 +46,8 @@ const newEntries = [];
 desired.forEach(({ path: routePath, dir, className }) => {
   const file = path.join(componentsDir, dir, `${dir}.ts`);
   if (fs.existsSync(file)) {
-    const importLine = `import { ${className} } from './components/${dir}/${dir}.ts';`;
-    importLines.set(importLine, true);
+    const importLine = `import { ${className} } from './components/${dir}/${dir}';`;
+    importLines.set(normalizeImport(importLine), true);
     if (!existingPaths.has(routePath)) {
       newEntries.push(`  { path: '${routePath}', component: ${className} }`);
     }
