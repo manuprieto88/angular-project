@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './busqueda2.html',
   styleUrl: './busqueda2.css',
 })
-export class Busqueda2 {
-
-}
+export class Busqueda2Component {}
