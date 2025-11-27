@@ -16,25 +16,6 @@
     </div>
   </header>
 
-  <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom shadow-sm">
-    <div class="container">
-      <ul class="nav nav-pills flex-wrap gap-2">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/lista" routerLinkActive="active" aria-current="page">Lista</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/lista/1" routerLinkActive="active">Detalle</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/busqueda1" routerLinkActive="active">Búsqueda 1</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/busqueda2" routerLinkActive="active">Búsqueda 2</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-
   <main class="container py-5 flex-grow-1">
     <div class="row g-4 align-items-stretch">
       <section class="col-lg-8">
@@ -46,9 +27,6 @@
               Usa esta plantilla para construir tu solución. Los comandos de la CLI ya generaron
               la estructura mínima de componentes y servicios: solo tienes que añadir tu lógica y estilos.
             </p>
-            <div class="p-3 mb-4 border border-dashed rounded-3 bg-body-tertiary small text-body-secondary">
-              Usa el menú superior para navegar entre componentes y verlos renderizados en la sección inferior.
-            </div>
             <div class="row g-3">
               <div class="col-md-6">
                 <div class="list-group list-group-flush shadow-sm rounded-3">
@@ -111,15 +89,6 @@ npm start</code></pre>
         </div>
       </aside>
     </div>
-
-    <section class="mt-4">
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <p class="fw-semibold mb-3">Vista enrutada</p>
-          <router-outlet></router-outlet>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer class="bg-body py-3 border-top">
